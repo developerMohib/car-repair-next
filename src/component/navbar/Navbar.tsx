@@ -1,5 +1,6 @@
 "use client"
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 
 // Icons from lucide-react, commonly used with shadcn/ui
@@ -41,20 +42,20 @@ const XIcon = ({ className }: { className?: string }) => (
 );
 
 const MountainIcon = ({ className }: { className?: string }) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+  </svg>
 );
 
 const SunIcon = ({ className }: { className?: string }) => (
@@ -99,10 +100,11 @@ const MoonIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 const Navbar = () => {
-     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
   // Navigation links data
   const navLinks = [
+    { href: "/", label: "Home" },
     { href: "/features", label: "Features" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
@@ -113,26 +115,26 @@ const Navbar = () => {
     // setTheme(theme === 'dark' ? 'light' : 'dark');
     console.log('Hello Theme')
   };
-    return (
-        <header className="bg-white/80 dark:bg-black/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-700">
+  return (
+    <header className="bg-white/80 dark:bg-black/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
+
           {/* Logo Section */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center gap-2">
-               <MountainIcon className="h-6 w-6 text-gray-900 dark:text-white" />
-              <span className="text-lg font-semibold text-gray-900 dark:text-white">Acme Inc</span>
+              <MountainIcon className="h-6 w-6 text-gray-900 dark:text-white" />
+              <h1 className="text-lg font-semibold text-red-600 dark:text-white">AutoFix <span className="text-lg font-semibold text-gray-900 dark:text-white">Garage</span></h1>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
-              <Link 
-                key={link.label} 
-                href={link.href} 
-                className="text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`text-sm font-medium transition-colors duration-300 hover:border-b border-slate-700 ${pathname === link.href ? "text-gray-900 dark:text-gray-800 border-b border-slate-700" : "text-gray-500 dark:text-gray-300"} `}
               >
                 {link.label}
               </Link>
@@ -141,9 +143,9 @@ const Navbar = () => {
 
           {/* CTA Button, Theme Toggle and Mobile Menu Toggle */}
           <div className="flex items-center gap-4">
-             <Link href="#" className="hidden sm:inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors duration-300">
-                Get Started
-             </Link>
+            <Link href="#" className="hidden sm:inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors duration-300">
+              Get Started
+            </Link>
 
             {/* Theme Toggle Button */}
             <button
@@ -151,7 +153,7 @@ const Navbar = () => {
               className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 dark:focus:ring-gray-400 transition-colors duration-300"
               aria-label="Toggle theme"
             >
-                <SunIcon className="h-5 w-5" />
+              <SunIcon className="h-5 w-5" />
               {/* {theme === 'dark' ? (
                 <SunIcon className="h-5 w-5" />
               ) : (
@@ -188,14 +190,14 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-             <Link href="#" className="w-full mt-2 text-center items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 block transition-colors duration-300">
-                Get Started
-             </Link>
+            <Link href="#" className="w-full mt-2 text-center items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 block transition-colors duration-300">
+              Get Started
+            </Link>
           </div>
         </div>
       )}
     </header>
-    );
+  );
 };
 
 export default Navbar;
