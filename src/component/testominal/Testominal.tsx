@@ -1,0 +1,41 @@
+import React from 'react';
+const testimonials = [
+  {
+    quote: "Best service I've ever had. Fixed my car quickly and at a fair price.",
+    name: "John Smith",
+    role: "Regular Customer"
+  },
+  {
+    quote: "Honest mechanics who actually care about your vehicle. Highly recommended!",
+    name: "Sarah Johnson",
+    role: "First-time Customer"
+  },
+  {
+    quote: "They saved me hundreds compared to the dealership. Will definitely return.",
+    name: "Michael Brown",
+    role: "Satisfied Client"
+  }
+];
+const Testominal = () => {
+    return (
+        <section className="py-16 container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {testimonials?.map((testimonial, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+              <p className="text-gray-600 italic mb-4">&quot; &ldquo;&#34;{testimonial.quote}&rdquo;</p>
+              <div className="flex items-center">
+                <div className="bg-gray-200 w-12 h-12 rounded-full mr-4"></div>
+                <div>
+                  <h4 className="font-semibold">{testimonial.name}</h4>
+                  <p className="text-gray-500 text-sm">{testimonial.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+};
+
+export default Testominal;
