@@ -116,25 +116,25 @@ const Navbar = () => {
     console.log('Hello Theme')
   };
   return (
-    <header className="bg-white/80 dark:bg-black/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-700">
+    <header className="bg-black backdrop-blur-sm sticky top-0 z-50 w-full border-b border-gray-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
 
           {/* Logo Section */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 items-center ">
             <Link href="/" className="flex items-center gap-2">
               <MountainIcon className="h-6 w-6 text-gray-900 dark:text-white" />
-              <h1 className="text-lg font-semibold text-red-600 dark:text-white">AutoFix <span className="text-lg font-semibold text-gray-900 dark:text-white">Garage</span></h1>
+              <h1 className="text-lg font-semibold text-red-600 ">AutoFix <span className="text-lg font-semibold text-white">Garage</span></h1>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
+            {navLinks?.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`text-sm font-medium transition-colors duration-300 hover:border-b border-slate-700 ${pathname === link.href ? "text-gray-900 dark:text-gray-800 border-b border-slate-700" : "text-gray-500 dark:text-gray-300"} `}
+                className={`text-sm font-medium transition-colors duration-300 hover:border-b border-slate-300 pb-2 ${pathname === link.href ? "text-red-500 border-b border-slate-300" : "text-gray-500 dark:text-gray-300"} `}
               >
                 {link.label}
               </Link>
