@@ -4,9 +4,8 @@ const nextConfig: NextConfig = {
 images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'www.shutterstock.com',
-        pathname: '/image-vector/**',
+        protocol: "https",
+        hostname: "**",
       },
     ],
   },
