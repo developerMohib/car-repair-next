@@ -1,106 +1,8 @@
-'use client'
+
 import React from 'react';
+import { CheckIcon, TimesIcon } from '../../../public/assets/Icons';
+import { PricingCardProps, PricingFeature, PricingPlan, pricingPlans } from '@/shared/lib/pricingData';
 
-// TypeScript interfaces
-interface PricingFeature {
-  text: string;
-  included: boolean;
-}
-
-interface PricingPlan {
-  name: string;
-  price: string;
-  pricePeriod: string | null;
-  description: string;
-  features: PricingFeature[];
-  buttonText: string;
-  isPopular: boolean;
-}
-
-interface PricingCardProps {
-  plan: PricingPlan;
-}
-
-// SVG Icon for included features
-const CheckIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5 text-green-500 dark:text-green-400 mr-3 flex-shrink-0"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path
-      fillRule="evenodd"
-      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
-
-// SVG Icon for excluded features
-const TimesIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3 flex-shrink-0"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path
-      fillRule="evenodd"
-      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
-
-// Data for the pricing plans
-const pricingPlans: PricingPlan[] = [
-  {
-    name: 'Starter',
-    price: '$19',
-    pricePeriod: '/month',
-    description: 'Perfect for individuals and small teams starting out.',
-    features: [
-      { text: 'Up to 3 users', included: true },
-      { text: 'Basic automations', included: true },
-      { text: '5GB storage', included: true },
-      { text: 'Advanced analytics', included: false },
-      { text: 'Priority support', included: false },
-    ],
-    buttonText: 'Get Started',
-    isPopular: false,
-  },
-  {
-    name: 'Professional',
-    price: '$49',
-    pricePeriod: '/month',
-    description: 'For growing teams that need more power and features.',
-    features: [
-      { text: 'Up to 10 users', included: true },
-      { text: 'Advanced automations', included: true },
-      { text: '50GB storage', included: true },
-      { text: 'AI-powered analytics', included: true },
-      { text: 'Priority support', included: true },
-    ],
-    buttonText: 'Start Free Trial',
-    isPopular: true,
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    pricePeriod: null,
-    description: 'For large organizations with complex needs and scale.',
-    features: [
-      { text: 'Unlimited users', included: true },
-      { text: 'Custom automations & SSO', included: true },
-      { text: 'Unlimited storage', included: true },
-      { text: 'Advanced analytics & reporting', included: true },
-      { text: '24/7 dedicated support', included: true },
-    ],
-    buttonText: 'Contact Sales',
-    isPopular: false,
-  },
-];
 
 // Individual Pricing Card Component
 const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
@@ -193,7 +95,7 @@ const Pricing = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {pricingPlans.map((plan: PricingPlan, index: number) => (
+          {pricingPlans?.map((plan: PricingPlan, index: number) => (
             <PricingCard key={index} plan={plan} />
           ))}
         </div>

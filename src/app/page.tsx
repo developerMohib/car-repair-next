@@ -1,3 +1,4 @@
+import AboutUs from "@/component/aboutUs/AboutUs";
 import CTAContact from "@/component/contact/CTAContact";
 import HeroCTA from "@/component/hero/HeroCTA";
 import HowWorks from "@/component/howWorks/HowWorks";
@@ -11,6 +12,7 @@ export default function Home() {
     <main>
       <HeroCTA />
       <ServicesOffer />
+      <AboutUs />
       <WhyChooseUs />
       <HowWorks />
       <Pricing />
