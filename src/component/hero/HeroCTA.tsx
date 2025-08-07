@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./style.module.css";
 import Link from "next/link";
-import { BiRightArrow, BiSolidRightTopArrowCircle } from "react-icons/bi";
+import { BiSolidRightTopArrowCircle } from "react-icons/bi";
 
 interface Slide {
   title: string;

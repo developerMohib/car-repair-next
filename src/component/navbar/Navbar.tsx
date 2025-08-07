@@ -15,6 +15,8 @@ const Navbar = () => {
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
     { href: "/contact", label: "Contact" },
+    { href: "/login", label: "Login" },
+    { href: "/signup", label: "Sign Up" },
   ];
 
   const toggleTheme = () => {

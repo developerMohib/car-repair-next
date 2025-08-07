@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const ServicesOffer = () => {
+  console.log('service',services)
   return (
     <section className="py-16 container mx-auto px-4">
 
@@ -11,14 +12,14 @@ const ServicesOffer = () => {
       <h2 className="text-3xl font-bold text-center my-6">Our Services Area</h2>
       <h1 className="text-slate-800 text-center mb-8 w-[35%] mx-auto" >our company aims to empower businesses through scalable web solutions and user-friendly interfaces.</h1>
       <div className="grid md:grid-cols-3 gap-8">
-        {services?.map((service, index) => (
-          <div key={index} className="w-full max-w-sm border border-gray-200 rounded-lg shadow-sm hover:-translate-y-1 transition-all hover:shadow-md">
-            <Link href="#">
+        {services?.map((service) => (
+          <div key={service.id} className="w-full max-w-sm border border-gray-200 rounded-lg shadow-sm hover:-translate-y-1 transition-all hover:shadow-md">
+            <Link href={`details/${service.id}`}>
               <Image className="p-8 rounded-t-lg mx-auto" width={300} height={100} src={service.image} alt="product image" />
 
             </Link>
             <div className="px-5 pb-5">
-              <Link href="#">
+              <Link href={`details/${service.id}`}>
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900">{service.title}</h5>
               </Link>
 

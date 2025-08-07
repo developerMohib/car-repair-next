@@ -2,10 +2,6 @@ import Link from "next/link";
 import React from "react";
 import { GitHubIcon, LinkedInIcon, MountainIcon, TwitterIcon } from "../../../public/assets/Icons";
 
-
-
-
-
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black text-gray-900 dark:text-white py-12 px-4 font-inter border-t border-gray-200 dark:border-gray-800">
