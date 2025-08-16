@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef } from 'react';
-import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, LockIcon, MailIcon, UserIcon, XIcon } from '../../../public/assets/Icons';
+import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, LockIcon, MailIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
 import Link from 'next/link';
 
 const FloatingLabelInput: React.FC<{

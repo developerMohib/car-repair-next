@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { GitHubIcon, LinkedInIcon, MountainIcon, TwitterIcon } from "../../../public/assets/Icons";
+import { GitHubIcon, LinkedInIcon, MountainIcon, TwitterIcon } from "../../../public/icons/Icons";
 
 const Footer = () => {
   return (

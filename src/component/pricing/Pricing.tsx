@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CheckIcon, TimesIcon } from '../../../public/assets/Icons';
+import { CheckIcon, TimesIcon } from '../../../public/icons/Icons';
 import { PricingCardProps, PricingFeature, PricingPlan, pricingPlans } from '@/shared/lib/pricingData';
 
 
