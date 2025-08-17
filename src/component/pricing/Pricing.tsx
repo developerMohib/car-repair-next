@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { CheckIcon, TimesIcon } from '../../../public/icons/Icons';
 import { PricingCardProps, PricingFeature, PricingPlan, pricingPlans } from '@/shared/lib/pricingData';
+import { CheckIcon, TimesIcon } from '../../../public/icons/Icons';
 
 
 // Individual Pricing Card Component
