@@ -11,13 +11,13 @@ const Login = () => {
 
     return (
         // Main container with a custom background pattern and flexbox for centering. This setup is inherently responsive.
-        <div className="relative w-full flex items-center justify-center font-sans overflow-hidden">
+        <div className="relative w-full max-w-prose flex mx-auto items-center justify-center font-sans overflow-hidden my-5">
 
             {/* Login Card - More compact and shadcn-like */}
-            <div className="relative w-full max-w-prose p-6 space-y-6  rounded-lg border border-zinc-800 shadow-lg">
+            <div className="relative w-full p-6 space-y-6 rounded-lg border border-zinc-800 shadow-lg">
 
                 {/* Header section with icon and title - More compact */}
-                <div className="text-center space-y-3">
+                <div className="text-center space-y-5 py-5">
                     <div className="inline-flex p-2 bg-zinc-100 rounded-md border border-zinc-500">
                         <UserIcon />
                     </div>
