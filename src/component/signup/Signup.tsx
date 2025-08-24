@@ -6,13 +6,14 @@ import Link from 'next/link';
 const FloatingLabelInput: React.FC<{
   id: string;
   type: string;
+  name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   icon: React.ReactNode;
   rightIcon?: React.ReactNode;
   onRightIconClick?: () => void;
-}> = ({ id, type, value, onChange, placeholder, icon, rightIcon, onRightIconClick }) => {
+}> = ({ id, type, name, value, onChange, placeholder, icon, rightIcon, onRightIconClick }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -23,6 +24,7 @@ const FloatingLabelInput: React.FC<{
       <input
         id={id}
         type={type}
+        name={name}
         value={value}
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
@@ -54,6 +56,8 @@ const FloatingLabelInput: React.FC<{
     </div>
   );
 };
+
+
 const Signup = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
@@ -66,8 +70,18 @@ const Signup = () => {
     setShowPassword(!showPassword);
   };
 
-
-
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+     if (!fullName || !email || !password) {
+    alert("সব ফিল্ড পূরণ করতে হবে!");
+    return;
+  }
+    const newUser = { fullName, email, password };
+    console.log('user', newUser);
+    setEmail('');
+    setFullName('')
+    setPassword('')
+  };
   return (
     <>
       <div className="flex items-center justify-center p-6">
@@ -90,11 +104,12 @@ const Signup = () => {
               </p>
             </div>
 
-            <form className="space-y-4">
+            <form onSubmit={handleRegister} className="space-y-4">
               {/* Full Name Input */}
               <div className="space-y-2">
                 <FloatingLabelInput
                   id="fullName"
+                  name="fullName"
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
@@ -108,6 +123,7 @@ const Signup = () => {
                 <FloatingLabelInput
                   id="email"
                   type="email"
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
@@ -119,12 +135,21 @@ const Signup = () => {
               <div className="space-y-2">
                 <FloatingLabelInput
                   id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   icon={<LockIcon />}
-                  rightIcon={showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                  rightIcon={
+                    password !== "" ? (
+                      showPassword ? (
+                        <EyeOffIcon />
+                      ) : (
+                        <EyeIcon />
+                      )
+                    ) : null
+                  }
                   onRightIconClick={togglePasswordVisibility}
                 />
               </div>
@@ -132,7 +157,7 @@ const Signup = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 h-9 px-4 py-2 w-full cursor-pointer"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 bg-orange-500 text-zinc-50 shadow hover:bg-zinc-900/90 h-9 px-4 py-2 w-full cursor-pointer"
               >
                 Create Account
               </button>
@@ -153,7 +178,7 @@ const Signup = () => {
             {/* Social Login */}
             {/* Social login buttons - More compact shadcn style */}
             <div className="grid grid-cols-3 gap-2">
-              {[{ icon: <AppleIcon />, name: "Apple" }, { icon: <GoogleIcon />, name: "Google" }, { icon: <XIcon />, name: "Twitter" }].map((item, index) => (
+              {[{ icon: <AppleIcon />, name: "Apple" }, { icon: <GoogleIcon />, name: "Google" }, { icon: <XIcon />, name: "Twitter" }]?.map((item, index) => (
                 <button
                   key={index}
                   className="flex items-center justify-center h-9 px-3 rounded-md border border-zinc-500 bg-white hover:bg-zinc-900 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950"
