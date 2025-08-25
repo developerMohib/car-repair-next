@@ -1,29 +1,33 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient, ServerApiVersion, Db } from "mongodb";
 import config from "./config";
 
-export const connectDB = async () => {
+let client: MongoClient | null = null;
+let db: Db | null = null;
+const connectDB = async () => {
   const uri = config.databaseUrl;
   if (!uri) throw new Error("Missing MongoDB URI in environment variables");
   try {
-    let client: MongoClient | null = null;
     if (!client) {
-    client = new MongoClient(uri as string, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      },
-    });
-    await client.connect();
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-  }
-  return client;
+      client = new MongoClient(uri, {
+        serverApi: {
+          version: ServerApiVersion.v1,
+          strict: true,
+          deprecationErrors: true,
+        },
+      });
+      await client.connect();
+      console.log(
+        "Pinged your deployment. You successfully connected to MongoDB!"
+      );
+    }
+    if (!db) {
+      db = client.db("carRepairAutofix");
+    }
+    return { client, db };
     
   } catch (error) {
     console.log(error);
   }
 };
-
-connectDB()
+// Export the connectDB function
+export { connectDB };
