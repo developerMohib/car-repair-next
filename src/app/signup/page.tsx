@@ -1,10 +1,13 @@
-import Signup from '@/component/signup/Signup';
-import React from 'react';
+import Signup from "@/component/signup/Signup";
 
 const page = () => {
-    return (
-        <Signup />
-    );
+
+  return (
+    <>
+      <Signup />
+    </>
+  );
 };
+
 
 export default page;

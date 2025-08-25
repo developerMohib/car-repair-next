@@ -1,43 +1,7 @@
+import { providedServices } from '@/shared/lib/servicesData';
 import Head from 'next/head';
 import React from 'react';
-const services = [
-    {
-        id: 1,
-        title: "Engine Diagnostics",
-        description: "Advanced diagnostic tools to quickly find and fix engine issues.",
-        icon: "🛠️",
-    },
-    {
-        id: 2,
-        title: "Oil Change",
-        description: "Quick and affordable oil changes to keep your engine healthy.",
-        icon: "🛢️",
-    },
-    {
-        id: 3,
-        title: "Brake Repair",
-        description: "Expert brake inspection, replacement, and fluid refill.",
-        icon: "🛑",
-    },
-    {
-        id: 4,
-        title: "Battery Replacement",
-        description: "Fast and reliable battery testing and installation.",
-        icon: "🔋",
-    },
-    {
-        id: 5,
-        title: "AC & Heating",
-        description: "Stay cool or warm with full AC and heater servicing.",
-        icon: "❄️",
-    },
-    {
-        id: 6,
-        title: "Tire Services",
-        description: "Tire rotation, balancing, and replacement for safe driving.",
-        icon: "🚗",
-    },
-];
+
 const ServicesPage = () => {
     return (
         <>
@@ -56,7 +20,7 @@ const ServicesPage = () => {
 
                 {/* Services Grid */}
                 <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service) => (
+                    {providedServices?.map((service) => (
                         <div
                             key={service.id}
                             className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition text-center"

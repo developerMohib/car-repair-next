@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const ServicesOffer = () => {
-  console.log('service',services)
+  
   return (
     <section className="py-16 container mx-auto px-4">
 

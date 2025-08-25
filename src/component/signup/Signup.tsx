@@ -2,6 +2,8 @@
 import React, { useState, useRef } from 'react';
 import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, LockIcon, MailIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
 import Link from 'next/link';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const FloatingLabelInput: React.FC<{
   id: string;
@@ -56,14 +58,11 @@ const FloatingLabelInput: React.FC<{
     </div>
   );
 };
-
-
 const Signup = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
-
   const cardRef = useRef<HTMLDivElement>(null);
 
   const togglePasswordVisibility = () => {
@@ -77,10 +76,23 @@ const Signup = () => {
     return;
   }
     const newUser = { fullName, email, password };
-    console.log('user', newUser);
-    setEmail('');
-    setFullName('')
-    setPassword('')
+    console.log('user com', newUser);
+    // setEmail('');
+    // setFullName('')
+    // setPassword('')
+    try {
+            const response = await axios.post('http://localhost:3000/signup/api', newUser);
+            console.log(response);           
+            if(response?.data?.insertedId){
+                toast.success(response?.data?.message)
+            }
+            if(!response?.data?.insertedId){
+                toast.success(response?.data?.message)
+            }
+        } catch (error ) {
+            console.error('Error:', error);
+            // console.log(error?.response?.data?.message || 'An error occurred while creating the user');
+        }
   };
   return (
     <>
