@@ -13,7 +13,7 @@ export const POST = async (req: NextRequest): Promise<Response> => {
     }
 
     // existing user and checker
-    const exist = await db.collection("User").findOne({ email: newUser.email });
+    const exist = await db.collection("Users").findOne({ email: newUser.email });
     if (exist) {
       return Response.json({ message: "Email already exist" });
     }

@@ -2,12 +2,40 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 // --- Main App Component ---
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!email || !password) {
+            alert("সব ফিল্ড পূরণ করতে হবে!");
+            return;
+        }
+        const loginUser = { email, password };
+        setEmail('');
+        setPassword('')
+        console.log('user login',loginUser)
+        try {
+            const response = await axios.post('http://localhost:3000/login/api', loginUser);
+            // if (response?.data?.insertedId) {
+            //     toast.success(response?.data?.message)
+            // }
+            // if (!response?.data?.insertedId) {
+            //     toast.error(response?.data?.message)
+            // }
+            console.log('response login',response)
+        } catch (error) {
+            console.error('Error:', error);
+            // console.log(error?.response?.data?.message || 'An error occurred while creating the user');
+        }
+    }
+
 
     return (
         // Main container with a custom background pattern and flexbox for centering. This setup is inherently responsive.
@@ -52,7 +80,7 @@ const Login = () => {
                 </div>
 
                 {/* Form - Shadcn style */}
-                <form className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
                         <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-zinc-900">
                             Email
