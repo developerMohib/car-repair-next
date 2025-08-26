@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
 
 // --- Main App Component ---
 const Login = () => {
@@ -18,22 +19,10 @@ const Login = () => {
             return;
         }
         const loginUser = { email, password };
+        const res = await signIn('credentials', { email, password, redirect: false })
+        console.log('res form login', res)
         setEmail('');
         setPassword('')
-        console.log('user login',loginUser)
-        try {
-            const response = await axios.post('http://localhost:3000/login/api', loginUser);
-            // if (response?.data?.insertedId) {
-            //     toast.success(response?.data?.message)
-            // }
-            // if (!response?.data?.insertedId) {
-            //     toast.error(response?.data?.message)
-            // }
-            console.log('response login',response)
-        } catch (error) {
-            console.error('Error:', error);
-            // console.log(error?.response?.data?.message || 'An error occurred while creating the user');
-        }
     }
 
 
