@@ -1,5 +1,7 @@
+import { connectDB } from "@/utils/db";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
 const handler = NextAuth({
   session: {
@@ -15,14 +17,32 @@ const handler = NextAuth({
       async authorize(
         credentials: Record<"email" | "password", string> | undefined
       ) {
-        console.log("authorize", credentials);
+        if (!credentials) {
+          throw new Error("Unauthorize user");
+        }
 
-        if (!credentials) return null;
-
-        return {
-          id: "1",
-          name: "Demo User",
+        const { db } = (await connectDB()) || { db: null };
+        if (!db) {
+          throw new Error("Failed to connect to the database");
+        }
+        const userCollection = db.collection("Users");
+        const findUser = await userCollection.findOne({
           email: credentials.email,
+        });
+        if (!findUser) {
+          return null;
+        }
+        const matchPassword = bcrypt.compareSync(
+          credentials.password,
+          findUser.password
+        );
+        if (!matchPassword) {
+          return null;
+        }
+        return {
+          id: findUser._id.toString(),
+          name: findUser.name ?? null,
+          email: findUser.email,
         };
       },
     }),

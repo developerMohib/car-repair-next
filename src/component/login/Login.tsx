@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
 
@@ -19,8 +18,14 @@ const Login = () => {
             return;
         }
         const loginUser = { email, password };
-        const res = await signIn('credentials', { email, password, redirect: false })
+        const res = await signIn('credentials', { ...loginUser, redirect: false })
         console.log('res form login', res)
+        if (res?.status === 401) {
+            toast.error('Invalid email or password')
+        }
+        if (res?.status === 200) {
+            toast.success('Login Successfull')
+        }
         setEmail('');
         setPassword('')
     }

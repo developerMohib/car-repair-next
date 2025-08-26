@@ -20,12 +20,15 @@ export const POST = async (req: NextRequest): Promise<Response> => {
 
     // New user created
     const userCollection = db.collection("Users");
-    const hashedPassword = bcrypt.hashSync(newUser.password, saltRounds); // password hashing
+
+ // password hashing
+    const hashedPassword = bcrypt.hashSync(newUser.password, saltRounds);
+
     const result = await userCollection.insertOne({
       ...newUser,
       password: hashedPassword,
     });
-    if (!result.acknowledged) {
+    if (!result?.acknowledged) {
       throw new Error("Failed to insert new user");
     }
     return NextResponse.json({
