@@ -1,16 +1,19 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
+import { EyeIcon, EyeOffIcon, Facebook, GoogleIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
 import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { handlerSocialLoginButton } from '@/shared/handler';
+
 
 // --- Main App Component ---
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const router = useRouter();
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!email || !password) {
@@ -24,12 +27,12 @@ const Login = () => {
             toast.error('Invalid email or password')
         }
         if (res?.status === 200) {
-            toast.success('Login Successfull')
+            toast.success('Login Successfull');
+            router.push('/')
         }
         setEmail('');
         setPassword('')
     }
-
 
     return (
         // Main container with a custom background pattern and flexbox for centering. This setup is inherently responsive.
@@ -51,10 +54,11 @@ const Login = () => {
 
                 {/* Social login buttons - More compact shadcn style */}
                 <div className="grid grid-cols-3 gap-2">
-                    {[{ icon: <AppleIcon />, name: "Apple" }, { icon: <GoogleIcon />, name: "Google" }, { icon: <XIcon />, name: "Twitter" }].map((item, index) => (
+                    {[{ icon: <Facebook />, name: "Facebook" }, { icon: <GoogleIcon />, name: "Google" }, { icon: <XIcon />, name: "Twitter" }].map((item, index) => (
                         <button
                             key={index}
-                            className="flex items-center justify-center h-9 px-3 rounded-md border border-zinc-500 bg-white hover:bg-zinc-900 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950"
+                            onClick={()=>handlerSocialLoginButton(item.name)}
+                            className="flex items-center justify-center h-9 px-3 rounded-md border border-zinc-500 bg-white hover:bg-zinc-900 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 cursor-pointer"
                         >
                             {item.icon} {item.name}
                         </button>

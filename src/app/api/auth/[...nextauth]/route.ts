@@ -3,6 +3,11 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import toast from "react-hot-toast";
+import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
+import TwitterProvider from "next-auth/providers/twitter";
+import config from "@/utils/config";
+
 interface User {
   id: string;
   name: string | null;
@@ -53,6 +58,19 @@ const handler = NextAuth({
           email: findUser.email,
         };
       },
+    }),
+    GoogleProvider({
+      clientId: config.googleClientId!, // ! means must be thakbe
+      clientSecret: config.googleClientSecret!,
+    }),
+    FacebookProvider({
+      clientId: config.facebookClientId!,
+      clientSecret: config.facebookClientSecret!,
+    }),
+    TwitterProvider({
+      clientId: config.twitterClientId!,
+      clientSecret: config.twitterClientSecret!,
+      version: "2.0",
     }),
   ],
   callbacks: {},

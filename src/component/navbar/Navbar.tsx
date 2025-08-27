@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { MenuIcon, MountainIcon, SunIcon, XIcon } from '../../../public/icons/Icons';
 import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 
 const Navbar = () => {
@@ -86,11 +87,12 @@ const Navbar = () => {
 
           {/* Login and sign up and logout button */}
           <div>
-            { session?.data ? (<Link href={'/signup'}>
-              <button onClick={()=>signOut()} className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Log Out</button>
-            </Link>) : (<Link href={'/login'}>
-              <button className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Login</button>
-            </Link>)}
+            {session?.data ? (<div className='flex items-center justify-center gap-x-2 '>
+            <Image className='w-10 h-10 rounded-full' src={"https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"} alt='user' width={500} height={500} />
+              <button onClick={() => signOut()} className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Log Out</button></div>) : (<Link href={'/login'}>
+
+                <button className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Login</button>
+              </Link>)}
           </div>
 
         </div>
