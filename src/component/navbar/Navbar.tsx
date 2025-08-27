@@ -3,26 +3,29 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { MenuIcon, MountainIcon, SunIcon, XIcon } from '../../../public/icons/Icons';
+import { signOut, useSession } from 'next-auth/react';
 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const session = useSession();
+  console.log('session', session)
   // Navigation links data
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/features", label: "Features" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
-    { href: "/contact", label: "Contact" },
-    { href: "/login", label: "Login" },
-    { href: "/signup", label: "Sign Up" },
+    { href: "/contact", label: "Contact" }
   ];
 
   const toggleTheme = () => {
     // setTheme(theme === 'dark' ? 'light' : 'dark');
     console.log('Hello Theme')
   };
+
+
   return (
     <header className="bg-black backdrop-blur-sm sticky top-0 z-50 w-full border-b border-gray-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,6 +84,15 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* Login and sign up and logout button */}
+          <div>
+            { session?.data ? (<Link href={'/signup'}>
+              <button onClick={()=>signOut()} className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Log Out</button>
+            </Link>) : (<Link href={'/login'}>
+              <button className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Login</button>
+            </Link>)}
+          </div>
+
         </div>
       </div>
 
@@ -88,7 +100,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden border-t border-gray-200 dark:border-gray-700" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navLinks.map((link) => (
+            {navLinks?.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}

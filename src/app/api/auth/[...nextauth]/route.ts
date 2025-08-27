@@ -2,6 +2,12 @@ import { connectDB } from "@/utils/db";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import toast from "react-hot-toast";
+interface User {
+  id: string;
+  name: string | null;
+  email: string;
+}
 
 const handler = NextAuth({
   session: {
@@ -16,7 +22,7 @@ const handler = NextAuth({
       },
       async authorize(
         credentials: Record<"email" | "password", string> | undefined
-      ) {
+      ): Promise<User | null> {
         if (!credentials) {
           throw new Error("Unauthorize user");
         }
@@ -30,6 +36,7 @@ const handler = NextAuth({
           email: credentials.email,
         });
         if (!findUser) {
+          toast.error("User  Not Found !");
           return null;
         }
         const matchPassword = bcrypt.compareSync(
@@ -37,6 +44,7 @@ const handler = NextAuth({
           findUser.password
         );
         if (!matchPassword) {
+          toast.error("Invalid Credentials");
           return null;
         }
         return {
