@@ -1,9 +1,10 @@
 "use client"
 import React, { useState, useRef } from 'react';
-import { AppleIcon, EyeIcon, EyeOffIcon, GoogleIcon, LockIcon, MailIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
+import { EyeIcon, EyeOffIcon, Facebook, GoogleIcon, LockIcon, MailIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
 import Link from 'next/link';
-import axios from 'axios';
 import toast from 'react-hot-toast';
+import instance from '@/shared/instance';
+import { useRouter } from 'next/navigation';
 
 const FloatingLabelInput: React.FC<{
     id: string;
@@ -60,29 +61,31 @@ const FloatingLabelInput: React.FC<{
 };
 const Signup = () => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [fullName, setFullName] = useState<string>('');
     const cardRef = useRef<HTMLDivElement>(null);
-
+    const router = useRouter()
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
+    const image = "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp";
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!fullName || !email || !password) {
             alert("সব ফিল্ড পূরণ করতে হবে!");
             return;
         }
-        const newUser = { fullName, email, password };
-        setEmail('');
-        setFullName('')
-        setPassword('')
+        const newUser = { fullName, email, password, image };
+        setLoading(true)
+
         try {
-            const response = await axios.post('http://localhost:3000/signup/api', newUser);
+            const response = await instance.post('/signup/api', newUser);
             if (response?.data?.insertedId) {
-                toast.success(response?.data?.message)
+                toast.success(response?.data?.message);
+                router.push('/login')
+                setLoading(false)
             }
             if (!response?.data?.insertedId) {
                 toast.error(response?.data?.message)
@@ -91,6 +94,10 @@ const Signup = () => {
             console.error('Error:', error);
             // console.log(error?.response?.data?.message || 'An error occurred while creating the user');
         }
+        setLoading(false)
+        setEmail('');
+        setFullName('')
+        setPassword('')
     };
     return (
         <>
@@ -167,9 +174,10 @@ const Signup = () => {
                             {/* Submit Button */}
                             <button
                                 type="submit"
+                                disabled={loading}
                                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 bg-orange-500 text-zinc-50 shadow hover:bg-zinc-900/90 h-9 px-4 py-2 w-full cursor-pointer"
                             >
-                                Create Account
+                                {loading ? "Loading..." : "Create Account"}
                             </button>
                         </form>
 
@@ -188,7 +196,7 @@ const Signup = () => {
                         {/* Social Login */}
                         {/* Social login buttons - More compact shadcn style */}
                         <div className="grid grid-cols-3 gap-2">
-                            {[{ icon: <AppleIcon />, name: "Apple" }, { icon: <GoogleIcon />, name: "Google" }, { icon: <XIcon />, name: "Twitter" }]?.map((item, index) => (
+                            {[{ icon: <Facebook />, name: "Facebook" }, { icon: <GoogleIcon />, name: "Google" }, { icon: <XIcon />, name: "Twitter" }]?.map((item, index) => (
                                 <button
                                     key={index}
                                     className="flex items-center justify-center h-9 px-3 rounded-md border border-zinc-500 bg-white hover:bg-zinc-900 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950"

@@ -11,15 +11,18 @@ import { handlerSocialLoginButton } from '@/shared/handler';
 // --- Main App Component ---
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
+    
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!email || !password) {
             alert("সব ফিল্ড পূরণ করতে হবে!");
             return;
         }
+        setLoading(true)
         const loginUser = { email, password };
         const res = await signIn('credentials', { ...loginUser, redirect: false })
         console.log('res form login', res)
@@ -30,6 +33,7 @@ const Login = () => {
             toast.success('Login Successfull');
             router.push('/')
         }
+        setLoading(false)
         setEmail('');
         setPassword('')
     }
@@ -115,10 +119,11 @@ const Login = () => {
                         </div>
                     </div>
                     <button
+                    disabled={loading}
                         type="submit"
                         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 h-9 px-4 py-2 w-full cursor-pointer"
                     >
-                        Log In
+                        {loading ? "Logging in..." : "Log In"}
                     </button>
                 </form>
 

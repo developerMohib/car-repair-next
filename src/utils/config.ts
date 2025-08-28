@@ -15,6 +15,8 @@ interface Config {
 
   twitterClientId: string | undefined;
   twitterClientSecret: string | undefined;
+
+  nextAuthSecret: string | undefined;
 }
 const config: Config = {
   databaseUrl: process.env.NEXT_PUBLIC_MONGODB_URI,
@@ -29,6 +31,7 @@ const config: Config = {
 
   twitterClientId: process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID,
   twitterClientSecret: process.env.NEXT_PUBLIC_TWITTER_CLIENT_SECRET,
+  nextAuthSecret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
 };
 export default config;
 // veOFru29ISOeoVaT

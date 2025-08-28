@@ -13,27 +13,27 @@ export const POST = async (req: NextRequest): Promise<Response> => {
     }
 
     // existing user and checker
-    const exist = await db.collection("Users").findOne({ email: newUser.email });
-    if (exist) {
-      return Response.json({ message: "Email already exist" });
-    }
+    const exist = await db
+      .collection("Users")
+      .findOne({ email: newUser.email });
+    if (exist) Response.json({ message: "Email already exist" });
 
     // New user created
     const userCollection = db.collection("Users");
 
- // password hashing
+    // password hashing
     const hashedPassword = bcrypt.hashSync(newUser.password, saltRounds);
 
     const result = await userCollection.insertOne({
       ...newUser,
       password: hashedPassword,
     });
-    if (!result?.acknowledged) {
-      throw new Error("Failed to insert new user");
-    }
+    if (!result?.acknowledged) throw new Error("Failed to insert new user");
+
     return NextResponse.json({
       message: "Successfully created account",
       insertedId: result.insertedId,
+      data: result,
     });
   } catch (error) {
     console.error(error);
