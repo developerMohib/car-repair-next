@@ -1,5 +1,5 @@
 import { connectDB } from "@/utils/db";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import GoogleProvider from "next-auth/providers/google";
@@ -14,7 +14,7 @@ interface User {
   image?: string;
 }
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
@@ -71,8 +71,6 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log("token 79", token);
-      console.log("user 89", user);
       if (user) {
         token.id = user.id ?? user.id;
         token.email = user.email;
@@ -80,7 +78,6 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      console.log("session 78", session);
       if (token && session.user) {
         session.user.id = (token.id ?? token.id) as string;
         session.user.email = token.email as string;
@@ -93,5 +90,6 @@ const handler = NextAuth({
   pages: {
     signIn: "/login",
   },
-});
+};
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

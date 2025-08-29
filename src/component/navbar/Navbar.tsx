@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { MenuIcon, MountainIcon, SunIcon, XIcon } from '../../../public/icons/Icons';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 
 const Navbar = () => {
@@ -21,12 +22,15 @@ const Navbar = () => {
     { href: "/services", label: "Services" },
     { href: "/contact", label: "Contact" }
   ];
-
+  const handleLogout = async () => {
+    await signOut()
+    toast.success('Log out Successfull');
+  }
   const toggleTheme = () => {
     // setTheme(theme === 'dark' ? 'light' : 'dark');
     console.log('Hello Theme')
   };
-  if (status === "loading" || !data) {
+  if (status === "loading" || data === undefined) {
     return <p>Loading....</p>
   }
 
@@ -92,7 +96,7 @@ const Navbar = () => {
           <div>
             {session?.data ? (<div className='flex items-center justify-center gap-x-2 '>
               <Image className='w-10 h-10 rounded-full' src={data?.user?.image || "https://i.ibb.co/bF1kWkS/836.jpg"} alt={data?.user?.name || "User"} width={500} height={500} />
-              <button onClick={() => signOut()} className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Log Out</button></div>) : (<Link href={'/login'}>
+              <button onClick={handleLogout} className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Log Out</button></div>) : (<Link href={'/login'}>
 
                 <button className='text-white font-semibold cursor-pointer border border-white rounded-md px-3 py-1'>Login</button>
               </Link>)}

@@ -5,7 +5,7 @@ import { EyeIcon, EyeOffIcon, Facebook, GoogleIcon, UserIcon, XIcon } from '../.
 import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { handlerSocialLoginButton } from '@/shared/handler';
+import { useSocialLogin } from '@/shared/handler';
 
 
 // --- Main App Component ---
@@ -15,6 +15,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
+    const { handlerSocialLoginButton } = useSocialLogin();
     
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -58,11 +59,11 @@ const Login = () => {
 
                 {/* Social login buttons - More compact shadcn style */}
                 <div className="grid grid-cols-3 gap-2">
-                    {[{ icon: <Facebook />, name: "Facebook" }, { icon: <GoogleIcon />, name: "Google" }, { icon: <XIcon />, name: "Twitter" }].map((item, index) => (
+                    {[{ icon: <Facebook />, name: "facebook" }, { icon: <GoogleIcon />, name: "google" }, { icon: <XIcon />, name: "twitter" }].map((item, index) => (
                         <button
                             key={index}
-                            onClick={()=>handlerSocialLoginButton(item.name)}
-                            className="flex items-center justify-center h-9 px-3 rounded-md border border-zinc-500 bg-white hover:bg-zinc-900 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 cursor-pointer"
+                            onClick={() => handlerSocialLoginButton(item.name)}
+                            className="flex items-center justify-center h-9 px-3 rounded-md border border-zinc-500 bg-white hover:bg-zinc-900 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 cursor-pointer capitalize"
                         >
                             {item.icon} {item.name}
                         </button>
@@ -119,7 +120,7 @@ const Login = () => {
                         </div>
                     </div>
                     <button
-                    disabled={loading}
+                        disabled={loading}
                         type="submit"
                         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 h-9 px-4 py-2 w-full cursor-pointer"
                     >
