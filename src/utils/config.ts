@@ -34,5 +34,3 @@ const config: Config = {
   nextAuthSecret: process.env.NEXTAUTH_SECRET,
 };
 export default config;
-// veOFru29ISOeoVaT
-// mohibullahmohim2020
