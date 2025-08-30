@@ -13,7 +13,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const session = useSession();
   const { data, status } = session;
-  console.log('session', session)
+  
   // Navigation links data
   const navLinks = [
     { href: "/", label: "Home" },

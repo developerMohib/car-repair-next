@@ -12,7 +12,7 @@ export const useSocialLogin = () => {
     console.log("provider", provider);
 
     // redirect: false allows you to control where user goes manually
-    const res = await signIn(provider, { redirect: false, callbackUrl });
+    const res = await signIn(provider, { redirect: true, callbackUrl });
     console.log("res", res);
 
     if (res?.ok) {

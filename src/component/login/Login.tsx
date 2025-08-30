@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { EyeIcon, EyeOffIcon, Facebook, GoogleIcon, UserIcon, XIcon } from '../../../public/icons/Icons';
 import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSocialLogin } from '@/shared/handler';
 
 
@@ -16,7 +16,9 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const router = useRouter();
     const { handlerSocialLoginButton } = useSocialLogin();
-    
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
+
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!email || !password) {
@@ -25,8 +27,8 @@ const Login = () => {
         }
         setLoading(true)
         const loginUser = { email, password };
-        const res = await signIn('credentials', { ...loginUser, redirect: false })
-        console.log('res form login', res)
+        const res = await signIn('credentials', { ...loginUser, redirect: true, callbackUrl })
+
         if (res?.status === 401) {
             toast.error('Invalid email or password')
         }

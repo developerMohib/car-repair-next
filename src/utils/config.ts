@@ -19,19 +19,19 @@ interface Config {
   nextAuthSecret: string | undefined;
 }
 const config: Config = {
-  databaseUrl: process.env.NEXT_PUBLIC_MONGODB_URI,
-  salt: process.env.NEXT_PUBLIC_SALTROUNDS
-    ? parseInt(process.env.NEXT_PUBLIC_SALTROUNDS, 10)
+  databaseUrl: process.env.MONGODB_URI,
+  salt: process.env.SALTROUNDS
+    ? parseInt(process.env.SALTROUNDS, 10)
     : 14,
-  googleClientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-  googleClientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+  googleClientId: process.env.GOOGLE_CLIENT_ID,
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
 
-  facebookClientId: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID,
-  facebookClientSecret: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET,
+  facebookClientId: process.env.FACEBOOK_CLIENT_ID,
+  facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET,
 
-  twitterClientId: process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID,
-  twitterClientSecret: process.env.NEXT_PUBLIC_TWITTER_CLIENT_SECRET,
-  nextAuthSecret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+  twitterClientId: process.env.TWITTER_CLIENT_ID,
+  twitterClientSecret: process.env.TWITTER_CLIENT_SECRET,
+  nextAuthSecret: process.env.NEXTAUTH_SECRET,
 };
 export default config;
 // veOFru29ISOeoVaT

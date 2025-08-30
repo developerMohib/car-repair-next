@@ -8,11 +8,13 @@ interface Props {
 }
 const page = async({ params }:Props) => {
     const session = await getServerSession(authOptions);
-
+const { id } =await params;
+console.log(' pararms',session)
   // If no session, redirect to login
   if (!session) {
-    redirect(`/login?callbackUrl='/services/details/${params.id}`);
+    redirect(`/login?callbackUrl=/services/details/${id}`);
   }
+
     return (
         <div className="bg-gray-100 dark:bg-gray-800 py-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
