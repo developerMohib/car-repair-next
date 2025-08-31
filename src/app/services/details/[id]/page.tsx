@@ -8,23 +8,29 @@ interface Props {
     params: { id: string };
 }
 interface Service {
-    title : string, description: string, image: string , price : number , rating : string
+    title: string, description: string, image: string, price: number, rating: string
 }
 const page = async ({ params }: Props) => {
     const session = await getServerSession(authOptions);
     const { id } = await params;
-    console.log('id', id)
+    
     // If no session, redirect to login
     if (!session) {
         redirect(`/login?callbackUrl=/services/details/${id}`);
     }
-    console.log(' service', services)
-    const service :Service= services?.find(service => service.id === id);
-    console.log("service", service);
-    const { title, description, image, price, rating } = service;
+
+    const serviceRaw = services?.find(service => service.id === id);
+
+    const service: Service | undefined = serviceRaw ? {
+        ...serviceRaw,
+        rating: serviceRaw.rating.toString()
+    } : undefined;
+
     if (!service) {
-        return <p>Service not found</p>;
+        // handle service not found
+        throw new Error('Service not found');
     }
+    const { title, description, image, price } = service;
     return (
         <div className="bg-gray-100 dark:bg-gray-800 py-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
