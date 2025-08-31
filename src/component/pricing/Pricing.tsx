@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { PricingCardProps, PricingFeature, PricingPlan, pricingPlans } from '@/shared/lib/pricingData';
+import { PricingCardProps, PricingFeature, PricingPlan } from '@/shared/lib/pricingData';
 import { CheckIcon, TimesIcon } from '../../../public/icons/Icons';
+import instance from '@/shared/instance';
 
 
 // Individual Pricing Card Component
@@ -67,7 +68,10 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
     </div>
   );
 };
-const Pricing = () => {
+const Pricing = async() => {
+  const { data } = await instance.get('/componentsdata/pricing');
+    const pricing = data?.data 
+    console.log( 'pricing', pricing)
     return (
        <section id="pricing" className="relative py-16 sm:py-24 overflow-hidden">
       {/* Subtle pattern overlay */}
@@ -95,7 +99,7 @@ const Pricing = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {pricingPlans?.map((plan: PricingPlan, index: number) => (
+          {pricing?.map((plan: PricingPlan, index: number) => (
             <PricingCard key={index} plan={plan} />
           ))}
         </div>

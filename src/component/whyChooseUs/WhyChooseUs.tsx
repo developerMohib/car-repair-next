@@ -1,9 +1,13 @@
-import { benefits } from '@/shared/lib/benefitsData';
+import instance from '@/shared/instance';
 import Image from 'next/image';
 import React from 'react';
 import { FaCar } from 'react-icons/fa';
-
-const WhyChooseUs = () => {
+interface Benefits {
+  title: string, description: string
+}
+const WhyChooseUs = async () => {
+  const { data } = await instance.get('/componentsdata/benefits');
+  const benefits = data?.data as Benefits[]
   return (
     <section className="bg-gray-100 py-16">
       <div className="container mx-auto px-4">
