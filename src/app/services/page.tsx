@@ -1,8 +1,14 @@
-import { providedServices } from '@/shared/lib/servicesData';
+
+import instance from '@/shared/instance';
 import Head from 'next/head';
 import React from 'react';
+interface Service {
+    title: string, description: string, image: string, price: number, rating: string,id:string, icon :string
+}
+const ServicesPage =async () => {
+  const {data} = await instance.get('/services/api'); 
+    const services =  data?.data as Service[]
 
-const ServicesPage = () => {
     return (
         <>
             <Head>
@@ -20,7 +26,7 @@ const ServicesPage = () => {
 
                 {/* Services Grid */}
                 <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {providedServices?.map((service) => (
+                    {services?.map((service) => (
                         <div
                             key={service.id}
                             className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition text-center"

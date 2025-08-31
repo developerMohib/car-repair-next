@@ -3,29 +3,26 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { services } from '@/shared/lib/servicesData';
+import instance from '@/shared/instance';
 interface Props {
     params: { id: string };
 }
 interface Service {
-    title: string, description: string, image: string, price: number, rating: string
+    title: string, description: string, image: string, price: number, rating: string,id:string
 }
 const page = async ({ params }: Props) => {
     const session = await getServerSession(authOptions);
     const { id } = await params;
-    
-    // If no session, redirect to login
+    const {data} = await instance.get('/services/api'); 
+    const services =  data?.data as Service[]
     if (!session) {
         redirect(`/login?callbackUrl=/services/details/${id}`);
     }
-
     const serviceRaw = services?.find(service => service.id === id);
-
     const service: Service | undefined = serviceRaw ? {
         ...serviceRaw,
         rating: serviceRaw.rating.toString()
     } : undefined;
-
     if (!service) {
         // handle service not found
         throw new Error('Service not found');

@@ -1,10 +1,13 @@
-import { services } from '@/shared/lib/servicesData';
+import instance from '@/shared/instance';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-
-const ServicesOffer = () => {
-  
+interface Service {
+  title: string, description: string, image: string, price: number, rating: number, id: string, icon: string
+}
+const ServicesOffer = async () => {
+  const { data } = await instance.get('/services/api');
+  const services = data?.data as Service[]
   return (
     <section className="py-16 container mx-auto px-4">
 
