@@ -6,6 +6,7 @@ import Pricing from "@/component/pricing/Pricing";
 import ServicesOffer from "@/component/servicesOffer/ServicesOffer";
 import Testominal from "@/component/testominal/Testominal";
 import WhyChooseUs from "@/component/whyChooseUs/WhyChooseUs";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
