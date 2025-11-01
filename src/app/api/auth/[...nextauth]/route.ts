@@ -31,7 +31,7 @@ const { db } = (await connectDB()) || { db: null };
 if (!db) throw new Error("Failed to connect to the database");
 const userCollection = db.collection("Users");
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
