@@ -2,8 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import instance from '@/shared/instance';
+import { authOptions } from '@/utils/authOptions';
 interface Props {
     params: { id: string };
 }
@@ -12,7 +12,7 @@ interface Service {
 }
 const page = async ({ params }: Props) => {
     const session = await getServerSession(authOptions);
-    const { id } = await params;
+    const { id } = params;
     const {data} = await instance.get('/services/api'); 
     const services =  data?.data as Service[]
     if (!session) {
