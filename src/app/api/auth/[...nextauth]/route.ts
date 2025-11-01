@@ -98,7 +98,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async signIn({ user, account }: SignInParams) {
-      console.log("user 97", user, account);
       if (
         account?.provider === "google" ||
         account?.provider === "facebook" ||
@@ -106,7 +105,6 @@ export const authOptions: NextAuthOptions = {
       ) {
         try {
           const existUser = await userCollection.findOne({ email: user.email });
-          console.log("existUser 105", existUser);
           if (!existUser) {
             // Social user কে insert করার সময় unified schema follow করো
             const newUser = {

@@ -92,7 +92,7 @@ const Signup = () => {
             }
         } catch (error) {
             console.error('Error:', error);
-            // console.log(error?.response?.data?.message || 'An error occurred while creating the user');
+            
         }
         setLoading(false)
         setEmail('');

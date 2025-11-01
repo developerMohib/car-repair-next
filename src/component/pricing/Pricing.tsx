@@ -71,7 +71,6 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
 const Pricing = async() => {
   const { data } = await instance.get('/componentsdata/pricing');
     const pricing = data?.data 
-    console.log( 'pricing', pricing)
     return (
        <section id="pricing" className="relative py-16 sm:py-24 overflow-hidden">
       {/* Subtle pattern overlay */}

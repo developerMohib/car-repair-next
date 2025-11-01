@@ -28,7 +28,7 @@ const Navbar = () => {
   }
   const toggleTheme = () => {
     // setTheme(theme === 'dark' ? 'light' : 'dark');
-    console.log('Hello Theme')
+   
   };
   if (status === "loading" || data === undefined) {
     return <p>Loading....</p>
